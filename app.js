@@ -1,1 +1,1 @@
-console.log("Javascript has been loaded");
+const view = new ExpenseView();
