@@ -9,7 +9,7 @@ class ExpenseView{
   }
 
   getDOM(){
-    return this.DOM;
+    return Object.assign({},this.DOM);
   }
 
 }
