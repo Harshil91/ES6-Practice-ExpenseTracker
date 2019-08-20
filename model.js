@@ -4,6 +4,10 @@ class ExpenseModel{
     this.subscribers =[];
   }
 
+  all(){
+    return [...this.expenses];
+  }
+
   addExpense(expense){
     this.expenses.push(expense);
     this.subscribers.forEach((subscriber) => {
