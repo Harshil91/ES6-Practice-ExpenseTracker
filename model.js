@@ -1,7 +1,9 @@
 class ExpenseModel{
-  constructor(){
-    this.expenses=[];
+  constructor(db){
+    this.expenses=db.all();
     this.subscribers =[];
+
+    this.db = db;
   }
 
   all(){
@@ -17,6 +19,7 @@ class ExpenseModel{
 
   subscribe(subscriber){
     this.subscribers.push(subscriber);
+    subscriber.notify();
 
   }
 }
