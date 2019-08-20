@@ -1,6 +1,7 @@
 class ExpenseController{
-  constructor(view){
+  constructor(view, model){
     this.DOM = view.getDOM();
+    this.model = model;
 
     this.setUpEventHandlers();
   }
@@ -16,6 +17,10 @@ class ExpenseController{
     const date = form.date.value;
     const description = form.description.value;
 
-    console.log (amount, date, description);
+    this.model.addExpense({
+      amount,
+      date,
+      description
+    });
   }
 }

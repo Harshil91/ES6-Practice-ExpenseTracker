@@ -1,3 +1,4 @@
 const view = new ExpenseView();
-const controller = new ExpenseController(view);
+const model = new ExpenseModel();
+const controller = new ExpenseController(view,model);
 
