@@ -2,7 +2,7 @@ class ExpenseController{
   constructor(view, model){
     this.DOM = view.getDOM();
     this.model = model;
-
+    this.addExpense = this.addExpense.bind(this);
     this.setUpEventHandlers();
   }
 
