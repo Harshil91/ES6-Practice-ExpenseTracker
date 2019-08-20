@@ -1,12 +1,18 @@
 class DB {
   all(){
-    return [
-      {
-        description: "Groceries",
-        date: "10/09/1992",
-        amount: "69.69"
-      }
+    const expenses = [];
 
-    ];
+    for (let key in localStorage){
+      const expense = JSON.parse(localStorage.getItem(key));
+
+      expenses.push(expense);
+    }
+
+    return expenses;
+
+  }
+
+  add(expense){
+    localStorage.setItem(expense.id, JSON.stringify(expense));
   }
 }
