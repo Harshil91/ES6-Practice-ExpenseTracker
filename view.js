@@ -2,6 +2,7 @@ class ExpenseView{
   constructor(model) {
     this.DOM = this.selectDOMElements();
     this.model = model;
+    this.editableExpenses = new Set();
 
     this.model.subscribe(this);
   }
@@ -18,14 +19,47 @@ class ExpenseView{
     return Object.assign({},this.DOM);
   }
 
+  setExpenseEditable(expenseId){
+    this.editableExpenses.add(expenseId);
+    this.notify();
+  }
+
   notify(){
     this.DOM.expenses.innerHTML = '';
     this.model.all().forEach((expense) => {
 
-      const description= this.makeExpenseField(expense.description);
-      const date = this.makeExpenseField(expense.date);
-      const amount = this.makeExpenseField("$"+ expense.amount);
-      const expenseRow = `
+      
+      this.DOM.expenses.innerHTML += (this.editableExpenses.has(expense.id))
+                                   ? this.makeExpenseEditRow(expense)
+                                   : this.makeExpenseDisplayRow(expense);
+    });
+  }
+
+
+  makeExpenseField(value){
+    return `
+      <div class="field">
+        <h2>${value}</h2>
+      </div>
+    `;
+  }
+
+  makeExpenseEditRow(expense){
+    return `
+      <div class="expense">
+        This is being edited.
+      </div>
+    
+    
+    `;
+
+  }
+
+  makeExpenseDisplayRow(expense){
+    const description = this.makeExpenseField(expense.description);
+    const date = this.makeExpenseField(expense.date);
+    const amount = this.makeExpenseField("$" + expense.amount);
+    return `
         <div class="expense">
           ${description}
           ${date}
@@ -39,16 +73,5 @@ class ExpenseView{
           </button>
         </div>
       `;
-      this.DOM.expenses.innerHTML += expenseRow;
-    });
-  }
-
-
-  makeExpenseField(value){
-    return `
-      <div class="field">
-        <h2>${value}</h2>
-      </div>
-    `;
   }
 }

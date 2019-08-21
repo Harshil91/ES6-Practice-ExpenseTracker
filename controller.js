@@ -2,8 +2,13 @@ class ExpenseController{
   constructor(view, model){
     this.DOM = view.getDOM();
     this.model = model;
+    this.view = view;
+
+
     this.addExpense = this.addExpense.bind(this);
     this.removeExpense = this.removeExpense.bind(this);
+    this.setExpenseEditable = this.setExpenseEditable.bind(this);
+
     this.setUpEventHandlers();
   }
 
@@ -43,6 +48,8 @@ class ExpenseController{
   setExpenseEditable(e){
     const button = e.currentTarget;
     const expenseId = button.attributes["data-id"].value;
+
+    this.view.setExpenseEditable(expenseId);
 
   }
 }
