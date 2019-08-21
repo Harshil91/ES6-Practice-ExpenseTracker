@@ -14,9 +14,17 @@ class ExpenseModel{
     expense.id = this.generateId();
     this.expenses.push(expense);
     this.db.add(expense);
-    this.subscribers.forEach((subscriber) => {
-      subscriber.notify();
+
+    this.notify();
+
+  }
+
+  removeExpense(expenseId){
+    this.expenses = this.expenses.filter((expense) => {
+      return expense.id !== expenseId;
     });
+    this.db.remove(expenseId);
+    this.notify();
   }
 
   subscribe(subscriber){
@@ -29,5 +37,11 @@ class ExpenseModel{
     const timestamp = new Date().getTime();
 
     return JSON.stringify(timestamp);
+  }
+
+  notify(){
+    this.subscribers.forEach((subscriber) => {
+      subscriber.notify();
+    });
   }
 }

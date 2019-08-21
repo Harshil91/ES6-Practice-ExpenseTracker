@@ -29,8 +29,11 @@ class ExpenseController{
     });
   }
 
-  removeExpense(){
-    console.log("Delete An Expense");
+  removeExpense(e){
+    const button = e.currentTarget;
+    const expenseId = button.attributes["data-id"].value;
+
+    this.model.removeExpense(expenseId);
   }
 }
 
