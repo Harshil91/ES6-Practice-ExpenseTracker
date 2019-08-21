@@ -3,11 +3,16 @@ class ExpenseController{
     this.DOM = view.getDOM();
     this.model = model;
     this.addExpense = this.addExpense.bind(this);
+    this.removeExpense = this.removeExpense.bind(this);
     this.setUpEventHandlers();
   }
 
   setUpEventHandlers(){
     this.DOM.expenseForm.addEventListener('submit', this.addExpense);
+
+    [...this.DOM.deleteButtons].forEach((deleteButton) => {
+      deleteButton.addEventListener('click', this.removeExpense);
+    });
   }
 
   addExpense(e){
@@ -23,4 +28,9 @@ class ExpenseController{
       description
     });
   }
+
+  removeExpense(){
+    console.log("Delete An Expense");
+  }
 }
+

@@ -7,6 +7,7 @@ class ExpenseView{
   }
   selectDOMElements() {
     return {
+      deleteButtons: document.getElementsByClassName("delete"),
       expenseForm: document.getElementById('new-expense-form'),
       expenses: document.getElementById('expenses'),
     };
@@ -28,6 +29,11 @@ class ExpenseView{
           ${description}
           ${date}
           ${amount}
+        </div>
+        <div class="actions">
+          <button class="delete" data-id="${expense.id}">
+            Delete
+          </button>
         </div>
       `;
       this.DOM.expenses.innerHTML += expenseRow;
