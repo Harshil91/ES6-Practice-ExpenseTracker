@@ -8,6 +8,7 @@ class ExpenseView{
   selectDOMElements() {
     return {
       deleteButtons: document.getElementsByClassName("delete"),
+      editButtons: document.getElementsByClassName("edit"),
       expenseForm: document.getElementById('new-expense-form'),
       expenses: document.getElementById('expenses'),
     };
@@ -21,17 +22,19 @@ class ExpenseView{
     this.DOM.expenses.innerHTML = '';
     this.model.all().forEach((expense) => {
 
-      const.description= this.makeExpenseField(expense.description);
-      const.date = this.makeExpenseField(expense.date);
-      const.amount = this.makeExpenseField("$"+ expense.amount);
-      const.expenseRow = `
+      const description= this.makeExpenseField(expense.description);
+      const date = this.makeExpenseField(expense.date);
+      const amount = this.makeExpenseField("$"+ expense.amount);
+      const expenseRow = `
         <div class="expense">
           ${description}
           ${date}
           ${amount}
         </div>
         <div class="actions">
-          <button class="delete" data-id="${expense.id}">
+          <button class="edit" data-id="${expense.id}">
+            Edit
+          </button><button class="delete" data-id="${expense.id}">
             Delete
           </button>
         </div>

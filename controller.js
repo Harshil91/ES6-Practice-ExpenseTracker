@@ -13,6 +13,10 @@ class ExpenseController{
     [...this.DOM.deleteButtons].forEach((deleteButton) => {
       deleteButton.addEventListener('click', this.removeExpense);
     });
+
+    [...this.DOM.editButtons].forEach((editButton) => {
+      editButton.addEventListener('click', this.setExpenseEditable);
+    });
   }
 
   addExpense(e){
@@ -34,6 +38,12 @@ class ExpenseController{
     const expenseId = button.attributes["data-id"].value;
 
     this.model.removeExpense(expenseId);
+  }
+
+  setExpenseEditable(e){
+    const button = e.currentTarget;
+    const expenseId = button.attributes["data-id"].value;
+
   }
 }
 
