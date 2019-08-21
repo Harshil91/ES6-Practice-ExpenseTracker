@@ -44,10 +44,17 @@ class ExpenseView{
     `;
   }
 
-  makeExpenseEditRow(expense){
+  makeExpenseEditRow({amount, date, description,id}){
     return `
       <div class="expense">
-        This is being edited.
+        <form class= "edit-expense-form" data-id="${id}">
+          <input type="text" name="description" value="${description}">
+          <input type="text" name="date" value="${date}">
+          <input type="text" name="amount" value="${amount}">
+
+          <button type="reset">Cancel</button>
+          <button type="submit">Save</button>
+        </form>
       </div>
     
     
