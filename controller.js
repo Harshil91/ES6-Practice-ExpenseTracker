@@ -8,6 +8,7 @@ class ExpenseController{
     this.addExpense = this.addExpense.bind(this);
     this.removeExpense = this.removeExpense.bind(this);
     this.setExpenseEditable = this.setExpenseEditable.bind(this);
+    this.unsetExpenseEditable = this.unsetExpenseEditable.bind(this);
 
     this.setUpEventHandlers();
   }
@@ -21,6 +22,9 @@ class ExpenseController{
 
     [...this.DOM.editButtons].forEach((editButton) => {
       editButton.addEventListener('click', this.setExpenseEditable);
+    });
+    [...this.DOM.editForms].forEach((editForms) => {
+      editForms.addEventListener('reset', this.unsetExpenseEditable);
     });
   }
 
@@ -50,7 +54,16 @@ class ExpenseController{
     const expenseId = button.attributes["data-id"].value;
 
     this.view.setExpenseEditable(expenseId);
+    this.setUpEventHandlers();
 
+  }
+
+  unsetExpenseEditable(e){
+    const form = e.currentTarget;
+    const expenseId = form.attributes['data-id'].value;
+
+    this.view.unsetExpenseEditable(expenseId);
+    this.setUpEventHandlers();
   }
 }
 
