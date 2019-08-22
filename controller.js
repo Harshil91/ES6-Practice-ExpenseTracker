@@ -68,15 +68,20 @@ class ExpenseController{
     const date = form.date.value;
     const description = form.description.value;
 
-    this.model.editExpense({
-      amount,
-      date,
-      description,
-      id
-    });
+    try {
+      this.model.editExpense({
+        amount,
+        date,
+        description,
+        id
+      });
 
-    this.view.unsetExpenseEditable(id);
-    this.setUpEventHandlers();
+      this.view.hideErrorMessage();
+      this.view.unsetExpenseEditable(id);
+      this.setUpEventHandlers();
+    } catch (error){
+      this.view.displayAmountErrorMessage();
+    }
   }
 
   removeExpense(e){
@@ -99,6 +104,7 @@ class ExpenseController{
     const form = e.currentTarget;
     const expenseId = form.attributes['data-id'].value;
 
+    this.view.hideErrorMessage();
     this.view.unsetExpenseEditable(expenseId);
     this.setUpEventHandlers();
   }
