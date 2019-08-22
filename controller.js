@@ -8,8 +8,10 @@ class ExpenseController{
     this.addExpense = this.addExpense.bind(this);
     this.editExpense = this.editExpense.bind(this);
     this.removeExpense = this.removeExpense.bind(this);
+    this.hideErrorMessage = this.hideErrorMessage.bind(this);
     this.setExpenseEditable = this.setExpenseEditable.bind(this);
     this.unsetExpenseEditable = this.unsetExpenseEditable.bind(this);
+    
 
     this.model.subscribe(this);
 
@@ -18,6 +20,7 @@ class ExpenseController{
 
   setUpEventHandlers(){
     this.DOM.expenseForm.addEventListener('submit', this.addExpense);
+    this.DOM.expenseForm.addEventListener('reset', this.hideErrorMessage);
 
     [...this.DOM.deleteButtons].forEach((deleteButton) => {
       deleteButton.addEventListener('click', this.removeExpense);
@@ -98,6 +101,10 @@ class ExpenseController{
 
     this.view.unsetExpenseEditable(expenseId);
     this.setUpEventHandlers();
+  }
+
+  hideErrorMessage(){
+    this.view.hideErrorMessage();
   }
 
   notify(){
