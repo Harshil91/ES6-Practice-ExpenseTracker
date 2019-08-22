@@ -19,6 +19,20 @@ class ExpenseModel{
 
   }
 
+  editExpense({ amount, date, description, id }){
+    const expense = this.expenses.find((expense)=>{
+      return expense.id = id;
+    });
+
+    expense.amount = amount;
+    expense.date = date;
+    expense.description = description;
+
+    this.db.edit(expense);
+    this.notify();
+
+  }
+
   removeExpense(expenseId){
     this.expenses = this.expenses.filter((expense) => {
       return expense.id !== expenseId;

@@ -6,6 +6,7 @@ class ExpenseController{
 
 
     this.addExpense = this.addExpense.bind(this);
+    this.editExpense = this.editExpense.bind(this);
     this.removeExpense = this.removeExpense.bind(this);
     this.setExpenseEditable = this.setExpenseEditable.bind(this);
     this.unsetExpenseEditable = this.unsetExpenseEditable.bind(this);
@@ -28,7 +29,12 @@ class ExpenseController{
     [...this.DOM.editForms].forEach((editForms) => {
       editForms.addEventListener('reset', this.unsetExpenseEditable);
     });
+    [...this.DOM.editForms].forEach((editForms) => {
+      editForms.addEventListener('submit', this.editExpense);
+    });
   }
+
+
 
   addExpense(e){
     e.preventDefault();
@@ -42,6 +48,27 @@ class ExpenseController{
       date,
       description
     });
+  }
+
+
+  editExpense(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const id = form.attributes['data-id'].value;
+
+    const amount = form.amount.value;
+    const date = form.date.value;
+    const description = form.description.value;
+
+    this.model.editExpense({
+      amount,
+      date,
+      description,
+      id
+    });
+
+    this.view.unsetExpenseEditable(id);
+    this.setUpEventHandlers();
   }
 
   removeExpense(e){

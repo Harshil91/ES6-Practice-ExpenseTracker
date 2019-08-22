@@ -11,6 +11,10 @@ class DB {
     return expenses;
 
   }
+  
+  edit(expense){
+    this.add(expense);
+  }
 
   add(expense){
     localStorage.setItem(expense.id, JSON.stringify(expense));
