@@ -88,11 +88,19 @@ class ExpenseModel{
   }
 
   validateDate(date){
-    const matches = date.match(/^\d{2}\/\d{2}\/\d{4}$/);
+    const matches = date.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/);
 
     if (!matches) throw new InvalidDateError();
 
-    return date;
+    let [ month, day, year ] = date.split('/');
+
+    if (day.length === 1) day = '0' + day;
+    if (month.length === 1) month = '0' + month;
+
+    const timestamp = Date.parse(`${year}-${month}-${day}`);
+    if (isNaN(timestamp)) throw new InvalidDateError();
+
+    return [month, day, year].join('/');
     
   }
 }
