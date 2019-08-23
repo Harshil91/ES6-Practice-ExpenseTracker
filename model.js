@@ -1,4 +1,5 @@
 class InvalidAmountError extends Error{}
+class InvalidDateError extends Error { }
 
 
 class ExpenseModel{
@@ -16,6 +17,7 @@ class ExpenseModel{
   addExpense(expense){
     expense.id = this.generateId();
     expense.amount = this.validateAmount(expense.amount);
+    expense.date = this.validateDate(expense.date);
 
 
     this.expenses.push(expense);
@@ -31,7 +33,7 @@ class ExpenseModel{
     });
 
     expense.amount = this.validateAmount(amount);
-    expense.date = date;
+    expense.date = this.validateDate(date);
     expense.description = description;
 
     this.db.edit(expense);
@@ -83,5 +85,14 @@ class ExpenseModel{
 
 
     return `${dollars}.${cents}`;
+  }
+
+  validateDate(date){
+    const matches = date.match(/^\d{2}\/\d{2}\/\d{4}$/);
+
+    if (!matches) throw new InvalidDateError();
+
+    return date;
+    
   }
 }
