@@ -10,9 +10,6 @@ class ExpenseModel{
     this.db = db;
   }
 
-  all(){
-    return [...this.expenses];
-  }
 
   addExpense(expense){
     expense.id = this.generateId();
