@@ -91,7 +91,14 @@ class ExpenseController{
     this.model.removeExpense(expenseId);
   }
 
+  setExpenseEditable(e){
+    const button = e.currentTarget;
+    const expenseId = button.attributes["data-id"].value;
 
+    this.view.setExpenseEditable(expenseId);
+    this.setUpEventHandlers();
+
+  }
 
   unsetExpenseEditable(e){
     const form = e.currentTarget;
