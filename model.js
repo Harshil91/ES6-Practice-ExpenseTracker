@@ -14,18 +14,7 @@ class ExpenseModel{
     return [...this.expenses];
   }
 
-  addExpense(expense){
-    expense.id = this.generateId();
-    expense.amount = this.validateAmount(expense.amount);
-    expense.date = this.validateDate(expense.date);
 
-
-    this.expenses.push(expense);
-    this.db.add(expense);
-
-    this.notify();
-
-  }
 
   editExpense({ amount, date, description, id }){
     const expense = this.expenses.find((expense)=>{
